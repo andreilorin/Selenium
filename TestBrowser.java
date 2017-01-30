@@ -1,14 +1,24 @@
 package testdriver;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
@@ -34,6 +44,11 @@ public class TestBrowser {
 				.configure()
 				.addAnnotatedClass(MessageSender.class)
 				.buildSessionFactory();
+		
+		//Set up gecko driver
+		System.setProperty("webdriver.gecko.driver",
+				"C:\\Users\\Lorin\\Desktop\\Selenium\\geckodriver.exe");
+				
 	}
 	
 	/**
@@ -43,9 +58,6 @@ public class TestBrowser {
 	 */
 	@Before
 	public void setUpBeforeEachTest(){
-		//Set up gecko driver
-		System.setProperty("webdriver.gecko.driver",
-				"C:\\Users\\Lorin\\Desktop\\Selenium\\geckodriver.exe");
 		
 		//Get Session 
 		session = factory.getCurrentSession();	
@@ -79,7 +91,8 @@ public class TestBrowser {
 		session.beginTransaction();
 		
 		//Get the first row from the table as a MessageSender object
-		MessageSender messageSender = session.get(MessageSender.class, 1);
+		int key = 1;
+		MessageSender messageSender = session.get(MessageSender.class, key);
 			
 		//Commit transaction
 		session.getTransaction().commit();		
@@ -87,11 +100,21 @@ public class TestBrowser {
 		//Complete contact form with fields from the messageSender object and send the message
 		driver.findElement(By.id("name")).sendKeys(messageSender.getName());
 		driver.findElement(By.id("email")).sendKeys(messageSender.getEmail());
-		driver.findElement(By.id("tel")).sendKeys(String.valueOf(messageSender.getTel()));
+		driver.findElement(By.id("phone")).sendKeys("" + messageSender.getTel());
 		driver.findElement(By.id("message")).sendKeys(messageSender.getMessage());
+		
+		//Capture screenshot
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);           
+
+		try {
+			FileUtils.copyFile(scrFile, new File("C:\\Users\\Lorin\\Desktop\\screenshot" + key + ".jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}    
 			
 		//Click the send button
-		driver.findElement(By.xpath("//span/button[text()='Send'][1]")).click();
+		WebElement element = driver.findElement(By.id("name"));
+		element.submit();
 	}
 	
 	/**
@@ -101,8 +124,10 @@ public class TestBrowser {
 	public void tearDown(){
 		try {
 			Thread.sleep(2000);
+			driver.quit();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 }
+
