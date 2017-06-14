@@ -63,4 +63,13 @@ public class MainPage {
 		messageField.sendKeys(message);
 	}
 	
+	public void flash(WebElement element, WebDriver driver) {
+		JavascriptExecutor js = ((JavascriptExecutor) driver);
+		String color = element.getCssValue("backgroudColor");
+		for (int i = 0; i < 3; i++) {
+			changeColor();
+			changeColor();
+	}
+		
+	//TO-DO changeColor();
 }
