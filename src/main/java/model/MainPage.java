@@ -1,11 +1,13 @@
-package testdriver;
+package model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class MainPage {
+public class MainPage extends TestBrowserSetup {
 	
 	private static Logger logger = LogManager.getLogger(MainPage.class);
 	
@@ -34,7 +36,7 @@ public class MainPage {
 	public void enterName(String name) {
 		logger.info("Entering name: " + name);
 		nameField.click();
-		//TO-DO flash method
+		flash(nameField, driver);
 		nameField.clear();
 		nameField.sendKeys(name);
 	}
@@ -42,7 +44,7 @@ public class MainPage {
 	public void enterEmail(String email) {
 		logger.info("Entering email: " + email);
 		emailField.click();
-		//TO-DO flash method
+		flash(emailField, driver);
 		emailField.clear();
 		emailField.sendKeys(email);
 	}
@@ -50,7 +52,7 @@ public class MainPage {
 	public void enterPhone(String phone) {
 		logger.info("Entering phone: " + phone);
 		phoneField.click();
-		//TO-DO flash method
+		flash(phoneField, driver);
 		phoneField.clear();
 		phoneField.sendKeys(phone);
 	}
@@ -58,7 +60,7 @@ public class MainPage {
 	public void enterMessage(String message) {
 		logger.info("Entering message: " + message);
 		messageField.click();
-		//TO-DO flash method
+		flash(messageField, driver);
 		messageField.clear();
 		messageField.sendKeys(message);
 	}
@@ -67,9 +69,16 @@ public class MainPage {
 		JavascriptExecutor js = ((JavascriptExecutor) driver);
 		String color = element.getCssValue("backgroudColor");
 		for (int i = 0; i < 3; i++) {
-			changeColor();
-			changeColor();
+			changeColor(element, color, js);
+		}
 	}
-		
-	//TO-DO changeColor();
+
+	public void changeColor(WebElement element, String color, JavascriptExecutor js) {
+		js.executeScript("arguments[0].style.backgroundColor = '" + color + "'" + element);
+		try {
+			Thread.sleep(20);
+		} catch (InterruptedException ex) {
+			
+		}
+	}
 }
