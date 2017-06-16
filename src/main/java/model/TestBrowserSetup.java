@@ -1,4 +1,4 @@
-package newtestdriver;
+package model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +15,7 @@ public abstract class TestBrowserSetup {
 	static Logger logger = LogManager.getLogger(TestBrowserSetup.class);
 	
 	private static SessionFactory factory;
-	private WebDriver driver;
+	protected WebDriver driver;
 	private Session session;
 	
 	@BeforeClass

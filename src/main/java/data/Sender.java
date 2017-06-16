@@ -1,4 +1,4 @@
-package newtestdriver;
+package data;
 
 //This class can be used as a data provider for testNG 
 public class Sender {
