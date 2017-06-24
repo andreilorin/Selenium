@@ -9,15 +9,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage extends TestBrowserSetup {
+public class MainPage {
 	
 	private static Logger logger = LogManager.getLogger(MainPage.class);
 	
+	private WebDriver driver;
+	
 	public MainPage() {
+		driver = new ChromeDriver();
 		PageFactory.initElements(driver, this);
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Lorin\\git\\Selenium\\drivers\\chromedriver.exe");
-		driver = new ChromeDriver();
 	}
 	
 	//elements
@@ -76,6 +78,28 @@ public class MainPage extends TestBrowserSetup {
 		flash(messageField, driver);
 		messageField.clear();
 		messageField.sendKeys(message);
+	}
+	
+	public void accessGoogle(){
+		logger.info("Go to google");
+		driver.navigate().to("https://www.google.com");
+	}
+	
+	public void accessMyPage(){
+		logger.info("Go to my page");
+		driver.navigate().to("https://www.andreilorin.com");
+	}
+	
+	public void backPage(){
+		driver.navigate().back();
+	}
+	
+	public void forwardPage(){
+		driver.navigate().forward();
+	}
+	
+	public void refresh(){
+		driver.navigate().refresh();
 	}
 	
 	public void flash(WebElement element, WebDriver driver) {
