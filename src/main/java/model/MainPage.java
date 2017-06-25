@@ -16,10 +16,10 @@ public class MainPage {
 	private WebDriver driver;
 	
 	public MainPage() {
+		System.setProperty("webdriver.chrome.driver",
+				"C:/Users/Lorin/git/Selenium/drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		PageFactory.initElements(driver, this);
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\Lorin\\git\\Selenium\\drivers\\chromedriver.exe");
 	}
 	
 	//elements
@@ -91,14 +91,17 @@ public class MainPage {
 	}
 	
 	public void backPage(){
+		logger.info("Going back one page");
 		driver.navigate().back();
 	}
 	
 	public void forwardPage(){
+		logger.info("Going forward one page");
 		driver.navigate().forward();
 	}
 	
 	public void refresh(){
+		logger.info("Refreshing page");
 		driver.navigate().refresh();
 	}
 	
