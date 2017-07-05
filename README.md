@@ -8,8 +8,6 @@ Tools and technologies used:
 Selenium WebDriver
 Eclipse
 Java8
-JUnit
-Hibernate
-MySql
+TestNG
 Maven
 log4j2
