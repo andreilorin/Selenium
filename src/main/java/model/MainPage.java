@@ -11,13 +11,13 @@ import org.openqa.selenium.support.PageFactory;
 
 public class MainPage {
 	
-	private static Logger logger = LogManager.getLogger(MainPage.class);
+	//private static Logger logger = LogManager.getLogger(MainPage.class);
 	
 	private WebDriver driver;
 	
 	public MainPage() {
 		System.setProperty("webdriver.chrome.driver",
-				"C:/Users/Lorin/git/Selenium/drivers/chromedriver.exe");
+				".\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		PageFactory.initElements(driver, this);
 	}
@@ -40,12 +40,12 @@ public class MainPage {
 	
 	//simple actions
 	public void clickSend() {
-		logger.info("Clicking send button");
+		//logger.info("Clicking send button");
 		sendButton.click();
 	}
 	
 	public void enterName(String name) {
-		logger.info("Entering name: " + name);
+		//logger.info("Entering name: " + name);
 		scrollIntoView(nameField);
 		nameField.click();
 		flash(nameField, driver);
@@ -54,7 +54,7 @@ public class MainPage {
 	}
 	
 	public void enterEmail(String email) {
-		logger.info("Entering email: " + email);
+		//logger.info("Entering email: " + email);
 		scrollIntoView(emailField);
 		emailField.click();
 		flash(emailField, driver);
@@ -63,7 +63,7 @@ public class MainPage {
 	}
 	
 	public void enterPhone(String phone) {
-		logger.info("Entering phone: " + phone);
+		//logger.info("Entering phone: " + phone);
 		scrollIntoView(phoneField);
 		phoneField.click();
 		flash(phoneField, driver);
@@ -72,7 +72,7 @@ public class MainPage {
 	}
 	
 	public void enterMessage(String message) {
-		logger.info("Entering message: " + message);
+		//logger.info("Entering message: " + message);
 		scrollIntoView(messageField);
 		messageField.click();
 		flash(messageField, driver);
@@ -81,27 +81,27 @@ public class MainPage {
 	}
 	
 	public void accessGoogle(){
-		logger.info("Go to google");
+		//logger.info("Go to google");
 		driver.navigate().to("https://www.google.com");
 	}
 	
 	public void accessMyPage(){
-		logger.info("Go to my page");
+		//logger.info("Go to my page");
 		driver.navigate().to("https://www.andreilorin.com");
 	}
 	
 	public void backPage(){
-		logger.info("Going back one page");
+		//logger.info("Going back one page");
 		driver.navigate().back();
 	}
 	
 	public void forwardPage(){
-		logger.info("Going forward one page");
+		//logger.info("Going forward one page");
 		driver.navigate().forward();
 	}
 	
 	public void refresh(){
-		logger.info("Refreshing page");
+		//logger.info("Refreshing page");
 		driver.navigate().refresh();
 	}
 	
